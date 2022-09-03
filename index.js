@@ -1,31 +1,71 @@
-/* Refer to https://github.com/OleksiyRudenko/a-tiny-JS-world for the task details
-   Complete the below for code reviewers' convenience:
+const cat = {
+  species: 'cat',
+  name: 'Kitty',
+  gender: 'female',
+  legs: 4,
+  hands: 0,
+  saying: 'meow!',
+  friends: "cats don't needs any friends",
+};
 
-   Code repository: _put repo URL here_
-   Web app: _put project's github pages URL here_
-   */
+const catWoman = {
+  species: 'human',
+  name: 'Catwoman',
+  gender: 'female',
+  legs: 2,
+  hands: 2,
+  saying: cat.saying,
+  friends: cat.name,
+};
 
-// ======== OBJECTS DEFINITIONS ========
-// Define your objects here
+const woman = {
+  species: 'human',
+  name: 'Selina Kyle',
+  gender: 'female',
+  legs: 2,
+  hands: 2,
+  saying: 'Hello, Batman. Do you know Catwoman?',
+  friends: [cat.name, catWoman.name],
+};
 
+const man = {
+  species: 'human',
+  name: 'Bruce Wayne',
+  gender: 'male',
+  legs: 2,
+  hands: 2,
+  saying: "Hi! I'm Batman",
+  friends: [catWoman.name, woman.name],
+};
 
-// ======== OUTPUT ========
-/* Use print(message) for output.
-   Default tag for message is <pre>. Use print(message,'div') to change containing element tag.
+const dog = {
+  species: 'dog',
+  name: 'Spike',
+  gender: 'male',
+  legs: 4,
+  hands: 0,
+  saying: 'woof-woof!',
+  friends: [woman.name, man.name],
+};
 
-   Message can contain HTML markup. You may also tweak index.html and/or styles.css.
-   However, please, REFRAIN from improving visuals at least until your code is reviewed
-   so code reviewers might focus on a single file that is index.js.
-   */
+const persons = [dog, cat, man, woman, catWoman];
 
-/* Print examples:
-   print('ABC');
-   print('<strong>ABC</strong>');
-   print('<strong>ABC</strong>', 'div');
+const attr = [
+  'species',
+  'name',
+  'gender',
+  'legs',
+  'hands',
+  'saying',
+  'friends',
+];
 
-   print('human; John; male; 2; 2; Hello world!; Rex, Tom, Jenny');
-   print('human; <strong>John</strong>; male; 2; 2; <em>Hello world!</em>; Rex, Tom, Jenny');
-   print('human; <strong>John</strong>; male; 2; 2; <em>Hello world!</em>; Rex, Tom, Jenny', 'div');
-   */
+function tellMeAboutYou(obj) {
+  const arr = [];
+  attr.forEach((key) => {
+    obj[key] && arr.push(obj[key]);
+  });
+  return arr.join('; ') + '.';
+}
 
-
+persons.map((item) => print(tellMeAboutYou(item)));
