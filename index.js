@@ -8,15 +8,13 @@ const cat = {
   friends: "cats don't needs any friends",
 };
 
-const catWoman = {
-  species: 'human',
-  name: 'Catwoman',
-  gender: 'female',
-  legs: 2,
-  hands: 2,
-  saying: cat.saying,
-  friends: cat.name,
-};
+const catWoman = Object.create(cat);
+catWoman.species = 'human';
+catWoman.name = 'Catwoman';
+catWoman.gender = 'female';
+catWoman.legs = 2;
+catWoman.hands = 2;
+catWoman.friends = cat.name;
 
 const woman = {
   species: 'human',
