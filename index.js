@@ -50,7 +50,7 @@ const dog = {
 
 const persons = [dog, cat, man, woman, catWoman];
 
-const attr = [
+const attributes = [
   'species',
   'name',
   'gender',
@@ -60,12 +60,8 @@ const attr = [
   'friends',
 ];
 
-function tellMeAboutYou(obj) {
-  const arr = [];
-  attr.map((key) => {
-    obj[key] && arr.push(obj[key]);
-  });
-  return arr.join('; ') + '.';
+function personInfoItems(obj) {
+  return attributes.map((key) => obj[key]).join('; ') + '.';
 }
 
-persons.map((item) => print(tellMeAboutYou(item)));
+persons.map((item) => print(personInfoItems(item)));
