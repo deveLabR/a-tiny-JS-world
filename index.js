@@ -1,65 +1,76 @@
-const cat = {
-  species: 'cat',
-  name: 'Kitty',
-  gender: 'female',
-  legs: 4,
-  hands: 0,
-  saying: 'meow!',
-  friends: ["cats don't needs any friends"],
-};
+class Creature {
+  constructor(species, name, gender, saying, friends) {
+    this.species = species;
+    this.name = name;
+    this.gender = gender;
+    this.saying = saying;
+    this.friends = friends;
+    this.args = ['species', 'name', 'gender', 'saying', 'friends'];
+  }
+  personInfoItems() {
+    return this.args.map((key) => this[key]).join('; ');
+  }
+}
 
-const catWoman = Object.create(cat);
-catWoman.species = 'human';
-catWoman.name = 'Catwoman';
-catWoman.gender = 'female';
-catWoman.legs = 2;
-catWoman.hands = 2;
-catWoman.friends = [cat.name];
+class Animal extends Creature {
+  constructor(species, name, gender, saying, friends) {
+    super(species, name, gender, saying, friends);
+    this.leg = 4;
+    this.args = [...this.args, 'leg'];
+  }
+}
 
-const woman = {
-  species: 'human',
-  name: 'Selina Kyle',
-  gender: 'female',
-  legs: 2,
-  hands: 2,
-  saying: 'Hello, Batman. Do you know Catwoman?',
-  friends: [cat.name, catWoman.name],
-};
+class Human extends Creature {
+  constructor(name, gender, saying, friends) {
+    super('human', name, gender, saying, friends);
+    this.leg = 2;
+    this.hands = 2;
+    this.args = [...this.args, 'leg', 'hands'];
+  }
+}
 
-const man = {
-  species: 'human',
-  name: 'Bruce Wayne',
-  gender: 'male',
-  legs: 2,
-  hands: 2,
-  saying: "Hi! I'm Batman",
-  friends: [catWoman.name, woman.name],
-};
+class Cat extends Animal {
+  constructor(name, gender, friends) {
+    super('cat', name, gender, 'meow!', friends);
+  }
+}
 
-const dog = {
-  species: 'dog',
-  name: 'Spike',
-  gender: 'male',
-  legs: 4,
-  hands: 0,
-  saying: 'woof-woof!',
-  friends: [woman.name, man.name],
-};
+class Dog extends Animal {
+  constructor(name, gender, friends) {
+    super('dog', name, gender, 'woof-woof!', friends);
+  }
+}
+
+class Man extends Human {
+  constructor(name, saying, friends) {
+    super(name, 'male', saying, friends);
+  }
+}
+
+class Woman extends Human {
+  constructor(name, saying, friends) {
+    super(name, 'female', saying, friends);
+  }
+}
+
+class Catwoman extends Human {
+  constructor(name, saying, friends) {
+    super(name, 'female', saying, friends);
+  }
+}
+
+const cat = new Cat('Kitty', 'female', ["cats don't needs any friends"]);
+const catWoman = new Catwoman('Catwoman', cat.saying, [cat.name]);
+const woman = new Woman('Selina Kyle', 'Hello, Batman. Do you know Catwoman?', [
+  cat.name,
+  catWoman.name,
+]);
+const man = new Man('Bruce Wayne', "Hi! I'm Batman", [
+  catWoman.name,
+  woman.name,
+]);
+const dog = new Dog('Spike', 'male', [woman.name, man.name]);
 
 const persons = [dog, cat, man, woman, catWoman];
 
-const attributes = [
-  'species',
-  'name',
-  'gender',
-  'legs',
-  'hands',
-  'saying',
-  'friends',
-];
-
-function personInfoItems(person) {
-  return attributes.map((key) => person[key]).join('; ') + '.';
-}
-
-persons.map((person) => print(personInfoItems(person)));
+persons.map((person) => print(person.personInfoItems()));
